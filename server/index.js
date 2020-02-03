@@ -26,7 +26,7 @@ const pgClient = new Pool({
 pgClient.on('error', () => console.log('Lost PG connection!'));
 
 pgClient
-	.query("CREATE TABLE IF NOT EXISTS `values` (number INT);")
+	.query("CREATE TABLE IF NOT EXISTS values (number INT);")
 	.catch(err => console.log(err));
 
 //# Redis Client Setup
@@ -58,6 +58,7 @@ app.get('/values/current', async (req, res) => {
 
 app.post('/values', async (req, res) => {
 	const index= req.body.index;
+	console.log('request body: ', req.body);
 	if(parseInt(index) > 40){
 		res.status(422).send('Index too high!');
 	}
