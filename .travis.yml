@@ -1,4 +1,9 @@
 sudo: required
+
+branches:
+  only:
+    - master
+
 services:
   - docker
 
@@ -20,3 +25,17 @@ after_success:
   - docker push vafrcor/complex-nginx
   - docker push vafrcor/complex-server
   - docker push vafrcor/complex-worker
+
+deploy:
+  edge: true
+  on: 
+    branch: master
+  provider: elasticbeanstalk
+  region: "us-east-2"
+  app: "multi-docker"
+  env: "MultiDocker-env"
+  bucket_name: "elasticbeanstalk-us-east-2-130518357428"
+  bucket_path: "multi-docker-deployer"
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: 
+    secure: "$AWS_SECRET_KEY"
