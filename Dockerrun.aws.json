@@ -1,0 +1,39 @@
+{
+	"AWSEBDockerrunVersion": 2,
+	"containerDefinitions": [
+		{
+			"name":"server",
+			"image":"vafrcor/complex-server",
+			"hostname":"api",
+			"essential": false
+		},
+		{
+			"name":"client",
+			"image":"vafrcor/complex-client",
+			"hostname":"client",
+			"essential": false
+		},
+		{
+			"name":"worker",
+			"image":"vafrcor/complex-worker",
+			"hostname":"worker",
+			"essential": false
+		},
+		{
+			"name":"nginx",
+			"image":"vafrcor/complex-nginx",
+			"hostname":"nginx",
+			"essential": true,
+			"portMappings": [
+				{
+					"hostPort": 80,
+					"containerPort": 80
+				}
+			],
+			"links":[
+				"client",
+				"server"
+			]
+		}
+	]
+}
