@@ -48,11 +48,9 @@ jobs:
           docker build -t vafrcor/complex-nginx ./nginx
           docker build -t vafrcor/complex-server ./server
           docker build -t vafrcor/complex-worker ./worker
-          echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-          
 
       - name: Log into Docker Hub registry
-        run: echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_ID }}" --password-stdin
 
       - name: Push images
         run: |
